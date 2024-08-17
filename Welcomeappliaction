@@ -1,0 +1,393 @@
+///////////////////////////////aplication//////////////////////////////////////////////////////
+package Simplearrays;
+import java.util.*;
+
+public class Welcomepage 
+{
+    static Scanner sc = new Scanner(System.in);
+    static String username = "";
+    static String password = "";
+    static String phoneNumber = "";
+    static String recoveryPassword = "";
+
+    public static void main(String[] args) throws Exception 
+    {
+        while (true) {
+            System.err.println("***********Welcome to Logic Mask**************");
+            System.out.println("1. Signup");
+            System.out.println("2. Log In");
+            System.out.println("3. Forgot Password");
+            System.out.println("4. Exit");
+
+            int choice = sc.nextInt();
+            sc.nextLine();  // Consume newline
+
+            switch (choice) {
+                case 1:
+                    signup();
+                    break;
+                case 2:
+                    login();
+                    break;
+                case 3:
+                    forgotPassword();
+                    break;
+                case 4:
+                	  System.out.println("Thank you for using the application. Goodbye!");
+        
+                default:
+                   // System.err.println("Invalid choice. Please try again.");
+              	 // System.out.println("Thank you for using the application. Goodbye!");
+
+            }
+        }
+    }
+
+    static void signup() throws Exception {
+        if (!username.isEmpty()) {
+            System.err.println("Account already created. Please log in.");
+            Thread.sleep(30);
+            return;
+        }
+
+        System.out.print("Enter username: ");
+        username = sc.nextLine();
+        System.out.print("Enter Strongpassword: ");
+        password = sc.nextLine();
+        System.out.print("Enter phone number: ");
+        phoneNumber = sc.nextLine();
+        System.err.print("Once Again Enter  password for Recovery: ");
+        recoveryPassword = sc.nextLine();
+
+        System.out.println("Signup successful! Please log in.");
+    }
+
+    static void login() throws Exception {
+        if (username.isEmpty()) {
+        	Thread.sleep(46);
+            System.out.println("No account found. Please sign up first.");
+            return;
+        }
+
+        System.out.print("Enter username: ");
+        String user = sc.nextLine();
+        System.out.print("Enter password: ");
+        String pass = sc.nextLine();
+
+        if (user.equals(username) && pass.equals(password)) {
+            System.out.print("Enter phone number: ");
+            String phone = sc.nextLine();
+            if (phone.equals(phoneNumber)) {
+                otpVerification();
+            } else {
+                System.out.println("Incorrect phone number.");
+            }
+        } else {
+            System.out.println("Incorrect username or password.");
+        }
+    }
+
+    static void otpVerification() throws Exception {
+        int systemOtp = (int) (Math.random() * 9999) + 9999;
+        Thread.sleep(350);
+        System.err.println("OTP sent: " + systemOtp);
+
+        System.out.print("Enter OTP: ");
+        int userOtp = sc.nextInt();
+        sc.nextLine();  // Consume newline
+
+        if (systemOtp == userOtp) {
+            home();
+        } else {
+            System.err.println("OTP did not match.");
+        }
+    }
+
+    static void forgotPassword() {
+        System.out.print("Enter your recovery password: ");
+        String recovery = sc.nextLine();
+
+        if (recovery.equals(recoveryPassword)) {
+            System.out.print("Enter new password: ");
+            password = sc.nextLine();
+            System.out.println("Password reset successful.");
+        } else {
+            System.err.println("Incorrect recovery password.");
+        }
+    }
+
+    static void home() throws Exception  {
+        while (true) {
+            System.out.println("Welcome to Home Page!");
+            System.out.println("Select the list you want....");
+            Thread.sleep(10);
+            System.out.println("1. Number Program");
+            System.out.println("2. Arrays Program");
+            System.out.println("3. Swizzy Application");
+            System.out.println("4. Exit");
+
+            int choice = sc.nextInt();
+            sc.nextLine();  // Consume newline
+
+            switch (choice) {
+                case 1:
+                    numberProgram();
+                    break;
+                case 2:
+                    arraysProgram();
+                    break;
+                case 3:
+                    swizzyApplication();
+                    break;
+                case 4:
+                    System.out.println("Exiting the application...");
+              	   System.err.println("Thank you for using the application. Goodbye!");
+
+                    System.exit(0);  // Exit the program
+                default:
+                    System.err.println("Invalid choice. Please try again.");
+            }
+        }
+    }
+
+    static void numberProgram() throws Exception {
+    	System.out.println("Please wait processing.......");
+    	Thread.sleep(1300);
+    	System.out.println("Select the program You want......");
+        System.out.println("1. Palindrome");
+        System.out.println("2. Prime Number");
+        System.out.println("3. Fibonacci Series");
+        System.out.println("4. Factorial Program");
+
+        int choice = sc.nextInt();
+        sc.nextLine();  // Consume newline
+
+        switch (choice) {
+            case 1:
+                palindromeProgram();
+                break;
+            case 2:
+                primeNumberProgram();
+                break;
+            case 3:
+                fibonacciSeriesProgram();
+                break;
+            case 4:
+                factorialProgram();
+                break;
+            default:
+                System.err.println("Invalid choice. Returning to home.");
+        }
+    }
+
+    static void palindromeProgram() {
+        System.out.print("Enter a number to check if it is a palindrome: ");
+        int number = sc.nextInt();
+        int original = number;
+        int reversed = 0;
+
+        while (number != 0) {
+            int digit = number % 10;
+            reversed = reversed * 10 + digit;
+            number /= 10;
+        }
+
+        if (original == reversed) {
+            System.out.println(original + " is a palindrome.");
+        } else {
+            System.out.println(original + " is not a palindrome.");
+        }
+    }
+
+    static void primeNumberProgram() {
+        System.out.print("Enter a number to check if it is prime: ");
+        int number = sc.nextInt();
+
+        if (number <= 1) {
+            System.out.println(number + " is not a prime number.");
+            return;
+        }
+
+        boolean isPrime = true;
+        for (int i = 2; i <= Math.sqrt(number); i++) {
+            if (number % i == 0) {
+                isPrime = false;
+                break;
+            }
+        }
+
+        if (isPrime) {
+            System.out.println(number + " is a prime number.");
+        } else {
+            System.out.println(number + " is not a prime number.");
+        }
+    }
+
+    static void fibonacciSeriesProgram() {
+        System.out.print("Enter the number of terms in Fibonacci series: ");
+        int terms = sc.nextInt();
+
+        int a = 0, b = 1;
+        System.out.print("Fibonacci Series: " + a + " " + b);
+
+        for (int i = 2; i < terms; i++) {
+            int next = a + b;
+            System.out.print(" " + next);
+            a = b;
+            b = next;
+        }
+        System.out.println();
+    }
+
+    static void factorialProgram() {
+        System.out.print("Enter a number to find its factorial: ");
+        int number = sc.nextInt();
+        long factorial = 1;
+
+        for (int i = 1; i <= number; i++) {
+            factorial *= i;
+        }
+
+        System.out.println("Factorial of " + number + " is " + factorial);
+    }
+
+    static void arraysProgram() {
+        System.out.println("1. Find Duplicates in an Array");
+        System.out.println("2. Add Two Arrays");
+
+        int choice = sc.nextInt();
+        sc.nextLine();  // Consume newline
+
+        switch (choice) {
+            case 1:
+                findDuplicatesInArray();
+                break;
+            case 2:
+                addTwoArrays();
+                break;
+            default:
+                System.err.println("Invalid choice. Returning to home.");
+        }
+    }
+
+    static void findDuplicatesInArray() {
+        System.out.print("Enter the size of the array: ");
+        int size = sc.nextInt();
+        int[] array = new int[size];
+
+        System.out.println("Enter the elements of the array:");
+        for (int i = 0; i < size; i++) {
+            array[i] = sc.nextInt();
+        }
+
+        System.out.println("Duplicate elements in the array are:");
+        HashSet<Integer> seen = new HashSet<>();
+        for (int i = 0; i < size; i++) {
+            if (seen.contains(array[i])) {
+                System.out.println(array[i]);
+            } else {
+                seen.add(array[i]);
+            }
+        }
+    }
+
+    static void addTwoArrays() {
+        System.out.print("Enter the size of the arrays: ");
+        int size = sc.nextInt();
+        int[] array1 = new int[size];
+        int[] array2 = new int[size];
+        int[] sumArray = new int[size];
+
+        System.out.println("Enter the elements of the first array:");
+        for (int i = 0; i < size; i++) {
+            array1[i] = sc.nextInt();
+        }
+
+        System.out.println("Enter the elements of the second array:");
+        for (int i = 0; i < size; i++) {
+            array2[i] = sc.nextInt();
+        }
+
+        for (int i = 0; i < size; i++) {
+            sumArray[i] = array1[i] + array2[i];
+        }
+
+        System.out.println("Sum of the two arrays:");
+        for (int i = 0; i < size; i++) {
+            System.out.print(sumArray[i] + " ");
+        }
+        System.out.println();
+    }
+
+    static void swizzyApplication() {
+        System.out.println("---------------WELCOME TO SWIZZY------------");
+        System.out.println("Select the hotel");
+        System.out.println("1. Buhar\n2. Hyderabad\n3. A2B");
+        int hotel = sc.nextInt();
+
+        switch (hotel) {
+            case 1:
+                processOrder("Buhar", 280, 200, 100);
+                break;
+            case 2:
+                processOrder("Hyderabad", 280, 200, 100);
+                break;
+            case 3:
+                processOrder("A2B", 280, 200, 100);
+                break;
+            default:
+                System.out.println("Invalid hotel selection.");
+        }
+    }
+
+    static void processOrder(String hotelName, int muttonBiryaniPrice, int chickenBiryaniPrice, int chicken65Price) {
+        System.out.println("Welcome to " + hotelName + " hotel");
+        System.out.println("1. Mutton Biryani\n2. Chicken Biryani\n3. Chicken 65");
+        System.out.print("Enter the food number: ");
+        int food = sc.nextInt();
+        System.out.print("Enter the quantity: ");
+        int quantity = sc.nextInt();
+        System.out.println("Please wait, processing...");
+
+        int price = 0;
+        if (food == 1) {
+            price = muttonBiryaniPrice;
+        } else if (food == 2) {
+            price = chickenBiryaniPrice;
+        } else {
+            price = chicken65Price;
+        }
+        int total = price * quantity;
+        System.out.println("Total Bill Amount: " + total);
+
+        System.out.println("Redirecting to payment gateway...");
+        System.out.println("1. GPay\n2. PhonePe");
+        int paymentChoice = sc.nextInt();
+
+        switch (paymentChoice) {
+            case 1:
+            case 2:
+                paymentProcess(total);
+                break;
+            default:
+                System.out.println("Invalid payment choice.");
+        }
+    }
+
+    static void paymentProcess(int totalAmount) {
+        System.out.print("Enter the amount: ");
+        int billAmount = sc.nextInt();
+        int otp = (int) (Math.random() * 9999 + 9999);
+        System.out.println("Generated OTP: " + otp);
+
+        System.out.print("Enter the OTP: ");
+        int enteredOtp = sc.nextInt();
+
+        if (enteredOtp == otp) {
+            System.out.println("OTP successfully entered.");
+            System.out.println("Your order will be delivered soon. Thank you!");
+        } else {
+            System.err.println("Invalid OTP.");
+        }
+    }
+}
